@@ -1,0 +1,75 @@
+<%= form_with model: report, url: reports_path, class: "form" do |f| %>
+  <% if report.errors.any? %>
+    <div class="form-errors">
+      <h2><%= pluralize(report.errors.count, "error") %> prevented this report from being saved:</h2>
+      <ul>
+        <% report.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-field">
+    <%= f.label :playerName, "Player Name" %>
+    <%= f.text_field :playerName, required: true %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :position, "Position" %>
+    <%= f.select :position, Report::POSITIONS, { include_blank: "Select position" }, required: true %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :grade, "Grade (0-100)" %>
+    <%= f.number_field :grade, min: 0, max: 100, required: true %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :team, "Team" %>
+    <%= f.text_field :team %>
+  </div>
+
+  <fieldset class="form-section">
+    <legend>Player Information</legend>
+
+    <div class="form-field">
+      <%= f.label :height, "Height" %>
+      <%= f.text_field :height, placeholder: "6'1\"", required: true %>
+    </div>
+
+    <div class="form-field">
+      <%= f.label :weight, "Weight (lbs)" %>
+      <%= f.number_field :weight, min: 1, required: true %>
+    </div>
+
+    <div class="form-field">
+      <%= f.label :age, "Age" %>
+      <%= f.number_field :age, min: 1, required: true %>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-section">
+    <legend>Player Evaluation</legend>
+
+    <div class="form-field">
+      <%= f.label :strengths, "Strengths" %>
+      <%= f.text_area :strengths, rows: 3, required: true %>
+    </div>
+
+    <div class="form-field">
+      <%= f.label :weaknesses, "Weaknesses" %>
+      <%= f.text_area :weaknesses, rows: 3, required: true %>
+    </div>
+  </fieldset>
+
+  <div class="form-field">
+    <%= f.label :comments, "Comments" %>
+    <%= f.text_area :comments, rows: 4 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "Create Report", class: "btn btn-primary" %>
+    <button type="button" class="btn btn-secondary" data-action="modal#close">Cancel</button>
+  </div>
+<% end %>

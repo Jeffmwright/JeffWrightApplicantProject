@@ -1,0 +1,42 @@
+<div class="page">
+  <header class="page-header page-header--report">
+    <div class="page-header__side">
+      <%= link_to "Back to dashboard", dashboard_path, class: "btn btn-secondary" %>
+    </div>
+    <h1 class="page-header__title"><%= @report.playerName %></h1>
+  </header>
+
+  <div class="card report-details">
+    <dl>
+      <dt>Position</dt>
+      <%= editable_field @report, :position, type: "select", mono: true, select_options: Report::POSITIONS %>
+
+      <dt>Grade</dt>
+      <%= editable_field @report, :grade, type: "number", mono: true %>
+
+      <dt>Team</dt>
+      <%= editable_field @report, :team %>
+
+      <dt>Height</dt>
+      <%= editable_field @report, :height %>
+
+      <dt>Weight</dt>
+      <%= editable_field @report, :weight, type: "number", mono: true %>
+
+      <dt>Age</dt>
+      <%= editable_field @report, :age, type: "number", mono: true %>
+
+      <dt>Strengths</dt>
+      <%= editable_field @report, :strengths, multiline: true %>
+
+      <dt>Weaknesses</dt>
+      <%= editable_field @report, :weaknesses, multiline: true %>
+
+      <dt>Comments</dt>
+      <%= editable_field @report, :comments, multiline: true %>
+
+      <dt>Created At</dt>
+      <dd class="mono"><%= @report.created_at.strftime("%Y-%m-%d %H:%M") %></dd>
+    </dl>
+  </div>
+</div>

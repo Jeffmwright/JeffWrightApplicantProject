@@ -1,0 +1,53 @@
+<div class="page" data-controller="modal" data-modal-open-value="<%= @open_modal %>">
+  <div class="page-brand">
+    <%= image_tag "Baltimore_Ravens_logo.png", alt: "Baltimore Ravens", class: "page-brand__logo" %>
+  </div>
+
+  <header class="page-header">
+    <h1>Scouting Reports</h1>
+    <button type="button" class="btn btn-primary" data-action="modal#open">Create Report</button>
+  </header>
+
+  <% if @reports.any? %>
+    <div class="card">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><%= sortable_column_header("playerName", "Player Name") %></th>
+            <th><%= sortable_column_header("position", "Position") %></th>
+            <th><%= sortable_column_header("grade", "Grade") %></th>
+            <th><%= sortable_column_header("team", "Team") %></th>
+            <th><%= sortable_column_header("created_at", "Created") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reports.each do |report| %>
+            <tr class="table-row-link"
+                role="link"
+                tabindex="0"
+                data-controller="clickable-row"
+                data-clickable-row-url-value="<%= report_path(report) %>"
+                data-action="click->clickable-row#navigate keydown->clickable-row#keydown">
+              <td><%= report.playerName %></td>
+              <td class="mono"><%= report.position %></td>
+              <td class="mono"><%= report.grade %></td>
+              <td><%= report.team %></td>
+              <td class="mono"><%= report.created_at.strftime("%Y-%m-%d") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <h2>No reports found</h2>
+      <p class="muted">Run <span class="mono">bin/rails db:seed</span> to generate sample data.</p>
+    </div>
+  <% end %>
+
+  <footer class="page-footer">
+    <p class="muted"><%= @reports.size %> total reports</p>
+  </footer>
+
+  <%= render "reports/modal", report: @report, open_modal: @open_modal %>
+</div>
