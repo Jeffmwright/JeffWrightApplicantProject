@@ -1,7 +1,7 @@
 module DashboardHelper
   def sortable_column_header(column, label)
     direction = next_sort_direction(column)
-    classes = ["sort-link"]
+    classes = [ "sort-link" ]
     classes << "sort-link--active" if @sort_column == column
 
     link_to dashboard_path(sort: column, direction: direction), class: classes.join(" ") do
